@@ -72,8 +72,6 @@ configuration = abha.Configuration(
     host = "https://abhasbx.abdm.gov.in/abha/api/v3"
 )
 
-
-
 # Enter a context with an instance of the API client
 with abha.ApiClient(configuration) as api_client:
     # Create an instance of the API class
