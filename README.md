@@ -1,4 +1,8 @@
-# abha
+# Ayushman Bharat Digital Mission: ABHA SDK
+[![PyPI version](https://badge.fury.io/py/abha.svg)](https://badge.fury.io/py/abha)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Check and Tests](https://github.com/Technoculture/ABDM-ABHA-SDK/actions/workflows/abha.yml/badge.svg)](https://github.com/Technoculture/ABDM-ABHA-SDK/actions/workflows/abha.yml)
+
 It is important to standardize the process of identification of an individual across healthcare providers, to ensure that the created medical records are issued to the right individual or accessed by a Health Information User through appropriate consent. In order to issue an ABHA Number to an individual, one only needs basic demographic details like Name, Year of Birth, Gender. In addition, citizens should be able to update contact information easily. The ABHA Number will be used for the purposes of uniquely identifying persons and authenticating them. An ABHA Address will be used for threading their health records (only with the informed consent of the patient) across multiple systems and stakeholders.
  
 Notes:
@@ -25,7 +29,7 @@ Python 3.7+
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/Technoculture/ABDM-ABHA-SDK/tree/dev
+pip install abha
 ```
 (you may need to run `pip` with root permission: `sudo pip install git+https://github.com/Technoculture/ABDM-ABHA-SDK/tree/dev`)
 
