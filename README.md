@@ -102,20 +102,3 @@ Class | Method | HTTP request | Description
 *ABHAEnrollmentApi* | [**api_v3_enrollment_enrol_by_document_post**](docs/ABHAEnrollmentApi.md#api_v3_enrollment_enrol_by_document_post) | **POST** /api/v3/enrollment/enrol/byDocument | ENROL - BY DOCUMENT
 *ABHAEnrollmentApi* | [**api_v3_enrollment_enrol_suggestion_get**](docs/ABHAEnrollmentApi.md#api_v3_enrollment_enrol_suggestion_get) | **GET** /api/v3/enrollment/enrol/suggestion | SUGESSTION
 *ABHAEnrollmentApi* | [**api_v3_enrollment_request_otp_post**](docs/ABHAEnrollmentApi.md#api_v3_enrollment_request_otp_post) | **POST** /api/v3/enrollment/request/otp | REQUEST - OTP FOR ENROLLMENT, UPDATE MOBILE and UPDATE EMAIL
-
-
-## Documentation For Models
-
-
-
-<a id="documentation-for-authorization"></a>
-## Documentation For Authorization
-
-Endpoints do not require authorization.
-
-
-## Author
-
-
-
-
