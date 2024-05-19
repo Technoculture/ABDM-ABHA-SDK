@@ -1,6 +1,7 @@
 import abha
 from pprint import pprint
 import os
+
 # Defining the host is optional and defaults to http://healthidsbx.abdm.gov.in/api
 # See configuration.py for a list of all supported configuration parameters.
 configuration = abha.Configuration(host="http://healthidsbx.abdm.gov.in/api")
