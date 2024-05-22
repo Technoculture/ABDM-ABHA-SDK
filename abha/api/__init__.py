@@ -2,4 +2,3 @@
 
 # import apis into api package
 from abha.api.default_api import DefaultApi
-
