@@ -18,17 +18,23 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GenerateMobileOtpRequest(BaseModel):
+class CreateHealthIdWithPreVerifiedRequest(BaseModel):
     """
-    GenerateMobileOtpRequest
+    CreateHealthIdWithPreVerifiedRequest
     """ # noqa: E501
-    mobile: StrictStr
-    txn_id: StrictStr = Field(description="Based on UUID", alias="txnId")
-    __properties: ClassVar[List[str]] = ["mobile", "txnId"]
+    email: Optional[StrictStr] = None
+    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
+    health_id: Optional[StrictStr] = Field(default=None, alias="healthId")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    middle_name: Optional[StrictStr] = Field(default=None, alias="middleName")
+    password: Optional[StrictStr] = None
+    profile_photo: Optional[StrictStr] = Field(default=None, description="Encoded with Base 64", alias="profilePhoto")
+    txn_id: Optional[StrictStr] = Field(default=None, description="Based on UUID", alias="txnId")
+    __properties: ClassVar[List[str]] = ["email", "firstName", "healthId", "lastName", "middleName", "password", "profilePhoto", "txnId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,7 +54,7 @@ class GenerateMobileOtpRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GenerateMobileOtpRequest from a JSON string"""
+        """Create an instance of CreateHealthIdWithPreVerifiedRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,7 +79,7 @@ class GenerateMobileOtpRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GenerateMobileOtpRequest from a dict"""
+        """Create an instance of CreateHealthIdWithPreVerifiedRequest from a dict"""
         if obj is None:
             return None
 
@@ -81,7 +87,13 @@ class GenerateMobileOtpRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "mobile": obj.get("mobile"),
+            "email": obj.get("email"),
+            "firstName": obj.get("firstName"),
+            "healthId": obj.get("healthId"),
+            "lastName": obj.get("lastName"),
+            "middleName": obj.get("middleName"),
+            "password": obj.get("password"),
+            "profilePhoto": obj.get("profilePhoto"),
             "txnId": obj.get("txnId")
         })
         return _obj

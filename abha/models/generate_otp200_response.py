@@ -18,17 +18,16 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GenerateMobileOtpRequest(BaseModel):
+class GenerateOtp200Response(BaseModel):
     """
-    GenerateMobileOtpRequest
+    GenerateOtp200Response
     """ # noqa: E501
-    mobile: StrictStr
-    txn_id: StrictStr = Field(description="Based on UUID", alias="txnId")
-    __properties: ClassVar[List[str]] = ["mobile", "txnId"]
+    txn_id: Optional[StrictStr] = Field(default=None, description="Based on UUID", alias="txnId")
+    __properties: ClassVar[List[str]] = ["txnId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,7 +47,7 @@ class GenerateMobileOtpRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GenerateMobileOtpRequest from a JSON string"""
+        """Create an instance of GenerateOtp200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,7 +72,7 @@ class GenerateMobileOtpRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GenerateMobileOtpRequest from a dict"""
+        """Create an instance of GenerateOtp200Response from a dict"""
         if obj is None:
             return None
 
@@ -81,7 +80,6 @@ class GenerateMobileOtpRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "mobile": obj.get("mobile"),
             "txnId": obj.get("txnId")
         })
         return _obj

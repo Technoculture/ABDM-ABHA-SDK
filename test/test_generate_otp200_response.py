@@ -14,10 +14,10 @@
 
 import unittest
 
-from abha.models.generate_mobile_otp_request import GenerateMobileOtpRequest
+from abha.models.generate_otp200_response import GenerateOtp200Response
 
-class TestGenerateMobileOtpRequest(unittest.TestCase):
-    """GenerateMobileOtpRequest unit test stubs"""
+class TestGenerateOtp200Response(unittest.TestCase):
+    """GenerateOtp200Response unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,28 +25,25 @@ class TestGenerateMobileOtpRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> GenerateMobileOtpRequest:
-        """Test GenerateMobileOtpRequest
+    def make_instance(self, include_optional) -> GenerateOtp200Response:
+        """Test GenerateOtp200Response
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `GenerateMobileOtpRequest`
+        # uncomment below to create an instance of `GenerateOtp200Response`
         """
-        model = GenerateMobileOtpRequest()
+        model = GenerateOtp200Response()
         if include_optional:
-            return GenerateMobileOtpRequest(
-                mobile = '9545812125',
+            return GenerateOtp200Response(
                 txn_id = 'a825f76b-0696-40f3-864c-5a3a5b389a83'
             )
         else:
-            return GenerateMobileOtpRequest(
-                mobile = '9545812125',
-                txn_id = 'a825f76b-0696-40f3-864c-5a3a5b389a83',
+            return GenerateOtp200Response(
         )
         """
 
-    def testGenerateMobileOtpRequest(self):
-        """Test GenerateMobileOtpRequest"""
+    def testGenerateOtp200Response(self):
+        """Test GenerateOtp200Response"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

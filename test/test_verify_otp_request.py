@@ -14,10 +14,10 @@
 
 import unittest
 
-from abha.models.generate_mobile_otp_request import GenerateMobileOtpRequest
+from abha.models.verify_otp_request import VerifyOtpRequest
 
-class TestGenerateMobileOtpRequest(unittest.TestCase):
-    """GenerateMobileOtpRequest unit test stubs"""
+class TestVerifyOtpRequest(unittest.TestCase):
+    """VerifyOtpRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,28 +25,28 @@ class TestGenerateMobileOtpRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> GenerateMobileOtpRequest:
-        """Test GenerateMobileOtpRequest
+    def make_instance(self, include_optional) -> VerifyOtpRequest:
+        """Test VerifyOtpRequest
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `GenerateMobileOtpRequest`
+        # uncomment below to create an instance of `VerifyOtpRequest`
         """
-        model = GenerateMobileOtpRequest()
+        model = VerifyOtpRequest()
         if include_optional:
-            return GenerateMobileOtpRequest(
-                mobile = '9545812125',
+            return VerifyOtpRequest(
+                otp = '812306',
                 txn_id = 'a825f76b-0696-40f3-864c-5a3a5b389a83'
             )
         else:
-            return GenerateMobileOtpRequest(
-                mobile = '9545812125',
+            return VerifyOtpRequest(
+                otp = '812306',
                 txn_id = 'a825f76b-0696-40f3-864c-5a3a5b389a83',
         )
         """
 
-    def testGenerateMobileOtpRequest(self):
-        """Test GenerateMobileOtpRequest"""
+    def testVerifyOtpRequest(self):
+        """Test VerifyOtpRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
