@@ -314,6 +314,711 @@ paths:
           description: Internal server error
       security:
         - bearerAuth: []
+  /account/qrCode:
+    get:
+      summary: Get Quick Response code in PNG format for this account.
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code. Returns Error for <b>Unauthorized Token</b>."
+      operationId: getQrCodeUsingGET
+
+      responses:
+        '200':
+            description: Return QR Code in Byte Array Form in case of success
+            
+        '400':
+            description: Bad request, check request before retrying
+            
+        '401':
+            description: Unauthorized Access.
+        '403':
+            description: Forbidden
+        '404':
+            description: Not Found
+      security:
+          - bearerAuth: []
+  /account/getCard:
+    get:
+      summary: Generate ABHA card in PDF format
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generateCardUsingGET
+
+      responses:
+        '200':
+            description: Return details in case of success
+            
+              
+        '400':
+            description: Bad request, check request before retrying
+            
+        '401':
+            description: Unauthorized Access.
+        '403':
+            description: Forbidden
+        '404':
+            description: Not Found
+        '422':
+            description: Could not generate Card or Invalid Token
+            
+        '500':
+            description: |-
+              Downstream system(s) is down.
+              Unhandled exceptions.
+  /account/getSvgCard:
+    get:
+      summary: Generate ABHA card SVG
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generateSvgCardUsingGET
+      responses:
+        '200':
+            description: Return details in case of success
+            
+        '400':
+            description: Bad request, check request before retrying
+        '401':
+            description: Unauthorized Access.
+        '403':
+            description: Forbidden
+        '404':
+            description: Not Found
+        '422':
+            description: Could not generate Card or Invalid Token
+        '500':
+            description: |-
+              Downstream system(s) is down.
+              Unhandled exceptions.
+  /account/getPngCard:
+    get:
+      summary: Generate ABHA card PNG
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generatePngCardUsingGET
+      responses:
+        '200':
+          description: Return details in case of success
+          
+        '400':
+          description: Bad request, check request before retrying
+            
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Could not generate Card or Invalid Token
+            
+        '500':
+          description: |-
+              Downstream system(s) is down.
+              Unhandled exceptions.
+          
+  /v3/patient/profile/share:
+    post:
+      tags:
+        - abdm-hiecm-profile-share
+      operationId: abdm-profile-share 1
+      summary: >-
+        This API will be invoked from the integrator application for sharing the
+        patient/user profile with the HMIS/LIMS.
+      description: >-
+        This is a API will be invoked from the <b>integrator application</b> to
+        share the user/patient profile with HMIS/LIMS. <ol type='1'> <li>
+        <b>Header</b>  <ol type='a'> <br/> <li>Authorization will be provided by
+        the gateway session API after the successful verification of client ID
+        and Secret [ Example:
+        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2 ]</li>
+        <li>REQUEST_ID unique UUID[ Example:
+        18235d89-cb13-479d-ad71-7a57d5f669a8 ]</li> <li>TIMESTAMP  actual time
+        of the requested was initiated[ Example: 2022-10-06T10:10:00.587 ]</li>
+        <li>X_AUTH_TOKEN JWT Authentication token which was issued by ABDM after
+        successful validation of username and password[ Example:
+        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2 ]</li>
+        <li>X_CM_ID  consent manager ID[ Example: ABDM_SBX ]</li> </ol> </li>
+        <br/> <li> <b>Request Body</b> <ol type='a'><br/> <li>intent This is a
+        key value pair  which contains the purpose [ Example: { hip_id:
+        ABDM_HIP, context: 123, purpose: profile_share } ]</li> <li>metaData
+        This is a key value pair which contains the location longitude and
+        latitude[ Example: { lat: 20.5937 long: 78.9629} ]</li> </ol> </ol>
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - intent
+              properties:
+                intent:
+                  type: object
+                  nullable: false
+                  required:
+                    - hipId
+                    - context
+                    - purpose
+                  properties:
+                    hipId:
+                      type: string
+                      nullable: false
+                      example: abdm_hip01
+                    context:
+                      type: number
+                      nullable: false
+                      example: 123
+                    purpose:
+                      type: string
+                      nullable: false
+                      enum:
+                        - profile_share
+                        - payment
+                        - data_share
+                      example: profile_share
+                metaData:
+                  type: object
+                  nullable: true
+                  required:
+                    - lat
+                    - long
+                  properties:
+                    lat:
+                      type: number
+                      format: float
+                      nullable: false
+                      example: 20.5937
+                    long:
+                      type: number
+                      format: float
+                      nullable: false
+                      example: 78.9629
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    required:
+                      - code
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        nullable: false
+                        example: ABDM-1049
+                      message:
+                        type: string
+                        nullable: false
+                        example: Invalid Profile Share Intent Keys
+                  - type: object
+                    required:
+                      - code
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        nullable: false
+                        example: ABDM-1025
+                      message:
+                        type: string
+                        nullable: false
+                        example: Invalid ServiceId
+                  - type: object
+                    required:
+                      - code
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        nullable: false
+                        example: ABDM-1050
+                      message:
+                        type: string
+                        nullable: false
+                        example: Invalid Profile Share Metadata Keys
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+  /v3/patient/profile/on-share:
+    post:
+      tags:
+        - abdm-hiecm-profile-share
+      operationId: profile-share 2
+      summary: >-
+        This API will be invoked by the HIP for sharing the response of HIECM's
+        /api/v3/hiecm/profile/share API
+      description: >-
+        This is a API will be invoked by the <b>HIP</b> to share the response of
+        HIECM's /api/v3/hiecm/profile/share API. <ol type='1'> <li>
+        <b>Header</b>  <ol type='a'> <br/> <li>AUTHORIZATION will be provided by
+        the gateway session API after the successful verification of client ID
+        and Secret [ Example:
+        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2 ]</li>
+        <li>REQUEST_ID unique UUID[ Example:
+        18235d89-cb13-479d-ad71-7a57d5f669a8 ]</li> <li>TIMESTAMP  actual time
+        of the requested was initiated[ Example: 2022-10-06T10:10:00.587 ]</li>
+        <li>X_CM_ID  consent manager ID[ Example: ABDM_SBX ]</li> </ol> </li>
+        <br/> <li> <b>Request Body</b> <ol type='a'><br/> <li>acknowledgement is
+        mandatory object in case of successful response</li> <li>error is
+        optional object in case of successful response</li> <li>response is
+        mandatory object in both the cases</li> </ol> </ol>
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  required:
+                    - response
+                  properties:
+                    acknowledgement:
+                      type: object
+                      nullable: false
+                      required:
+                        - abhaAddress
+                        - status
+                        - tokenNumber
+                        - expiry
+                      properties:
+                        abhaAddress:
+                          type: string
+                          nullable: false
+                          example: abc@abdm
+                        status:
+                          type: string
+                          nullable: false
+                          example: success
+                        context:
+                          type: string
+                          nullable: false
+                          example: 43
+                        tokenNumber:
+                          type: string
+                          nullable: false
+                          example: 3
+                        expiry:
+                          type: number
+                          nullable: false
+                          example: 180
+                    response:
+                      type: object
+                      nullable: false
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                          format: uuid
+                          nullable: false
+                          example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+      responses:
+        '200':
+          description: OK
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+  /[callback_url]/v3/hip/patient/profile/share:
+    post:
+      servers:
+       - url: https://integrator.callback.url
+         description: Base path for operations with /v3/hip/patient/profile/share
+      tags:
+        - abdm-hip-profile-share
+      operationId: profile-share 3
+      summary: >-
+        This API will be invoked by the HIP for sharing the response of HIECM's
+        /api/v3/hiecm/profile/share API
+      description: >-
+        This is a API will be invoked by the <b>HIP</b> to share the response of
+        HIECM's /api/v3/hiecm/profile/share API. <ol type='1'> <li>
+        <b>Header</b>  <ol type='a'> <br/> <li>REQUEST_ID unique UUID[ Example:
+        18235d89-cb13-479d-ad71-7a57d5f669a8 ]</li> <li>TIMESTAMP  actual time
+        of the requested was initiated[ Example: 2022-10-06T10:10:00.587 ]</li>
+        <li>X_HIP_ID  consent manager ID[ Example: ABDM_SBX ]</li> </ol> </li>
+        <br/> <li> <b>Request Body</b> <ol type='a'><br/> <li>acknowledgement is
+        mandatory object in case of successful response</li> <li>error is
+        optional object in case of successful response</li> <li>response is
+        mandatory object in both the cases</li> </ol> </ol>
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - abhaAddress
+                - kyc
+                - intent
+                - metaData
+              properties:
+                abhaAddress:
+                  type: string
+                  format: email
+                  nullable: false
+                  example: abc@abdm
+                abhaNumber:
+                  type: number
+                  nullable: false
+                  example: 12-3456-7890-1234
+                name:
+                  type: string
+                  nullable: false
+                  example: abdul kalam
+                gender:
+                  type: string
+                  nullable: false
+                  enum:
+                    - D Do not want to disclose
+                    - F Female
+                    - M Male
+                    - O Others
+                  example: M - Male
+                yearOfBirth:
+                  type: integer
+                  format: int32
+                  nullable: false
+                  example: 1931
+                address:
+                  type: string
+                  nullable: false
+                  example: Ramanathapuram, Tamil Nadu
+                district:
+                  type: string
+                  nullable: false
+                  example: Ramanathapuram
+                state:
+                  type: string
+                  nullable: false
+                  example: Tamil Nadu
+                intent:
+                  type: object
+                  nullable: false
+                  properties:
+                    context:
+                      type: number
+                      nullable: false
+                      example: 123
+                    linkToken:
+                      type: string
+                      format: uuid
+                      nullable: false
+                      example: >-
+                        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2
+                metaData:
+                  type: object
+                  nullable: true
+                  required:
+                    - lat
+                    - long
+                  properties:
+                    lat:
+                      type: number
+                      format: float
+                      nullable: false
+                      example: 20.5937
+                    long:
+                      type: number
+                      format: float
+                      nullable: false
+                      example: 78.9629
+      responses:
+        '200':
+          description: OK
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+  /[callback_url]/v3/app/patient/profile/on-share:
+    post:
+      servers:
+       - url: https://integrator.callback.url
+         description: Base path for operations with /v3/app/patient/profile/on-share
+      tags:
+        - abdm-app-profile-share
+      operationId: profile-share 4
+      summary: >-
+        This API will be invoked by the HIP for sharing the response of HIECM's
+        /api/v3/hiecm/profile/share API
+      description: >-
+        This is a API will be invoked by the <b>HIP</b> to share the response of
+        HIECM's /api/v3/hiecm/profile/share API. <ol type='1'> <li>
+        <b>Header</b>  <ol type='a'> <br/> <li>Authorization will be provided by
+        the gateway session API after the successful verification of client ID
+        and Secret [ Example:
+        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2 ]</li>
+        <li>REQUEST_ID unique UUID[ Example:
+        18235d89-cb13-479d-ad71-7a57d5f669a8 ]</li> <li>TIMESTAMP  actual time
+        of the requested was initiated[ Example: 2022-10-06T10:10:00.587 ]</li>
+        <li>X_HIU_ID  HIU ID[ Example: ABDM_SBX ]</li> </ol> </li> <br/> <li>
+        <b>Request Body</b> <ol type='a'><br/> <li>acknowledgement is mandatory
+        object in case of successful response</li> <li>error is optional object
+        in case of successful response</li> <li>response is mandatory object in
+        both the cases</li> </ol> </ol>
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - response
+              properties:
+                acknowledgement:
+                  type: object
+                  nullable: false
+                  required:
+                    - abhaAddress
+                    - status
+                    - tokenNumber
+                    - expiry
+                  properties:
+                    abhaAddress:
+                      type: string
+                      nullable: false
+                      example: abc@abdm
+                    status:
+                      type: string
+                      nullable: false
+                      example: success
+                    context:
+                      type: string
+                      nullable: false
+                      example: 43
+                    tokenNumber:
+                      type: string
+                      nullable: false
+                      example: 3
+                    expiry:
+                      type: number
+                      nullable: false
+                      example: 180
+                response:
+                  type: object
+                  nullable: false
+                  required:
+                    - requestId
+                  properties:
+                    requestId:
+                      type: string
+                      format: uuid
+                      nullable: false
+                      example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+      responses:
+        '200':
+          description: OK
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+  /v3/token/generate-token:
+    post:
+      tags:
+        - abdm-link-token
+      operationId: abdm-link-token 1
+      summary: API used to generate link token
+      description: >-
+        This is an API used to generate a link token of maximum validity [6
+        months], which can be used for HIP Initiated Linking.
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - gender
+                - yearOfBirth
+              properties:
+                abhaNumber:
+                  type: number
+                  nullable: true
+                  example: 12345678901234
+                  description: it can be null if abhaAddress is exist
+                abhaAddress:
+                  type: string
+                  nullable: true
+                  example: abc@abdm
+                  description: it can be null if abhaNumber is exist
+                name:
+                  type: string
+                  nullable: false
+                  example: first_name + middle_name + last_name
+                gender:
+                  type: string
+                  nullable: false
+                  example: M
+                yearOfBirth:
+                  type: number
+                  nullable: false
+                  example: 9999
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: server cannot find the requested resource
+        '500':
+          description: Internal Server Error
+  /[callback_url]/v3/hip/token/on-generate-token:
+    post:
+      servers:
+      - url: https://integrator.callback.url
+        description: Base path [callback_url] for operations with /v3/hip/token/on-generate-token
+      tags:
+        - hip-link-token
+      operationId: link-token 1
+      summary: This is a call back API of [{callback_url}/token/on-generate-token}]
+      description: >-
+        This is a call back API of [{callback_url}/token/on-generate-token}]
+        must be implemented at HIP.
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  required:
+                    - linkToken
+                    - response
+                  properties:
+                    abhaAddress:
+                      type: string
+                      nullable: false
+                      example: abc@abdm
+                    linkToken:
+                      type: string
+                      format: bearer
+                      nullable: true
+                      example: >-
+                        eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ2YXNhbnRoYWt1bWFyLmtlc2F2
+                    response:
+                      type: object
+                      nullable: false
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                          format: uuid
+                          nullable: false
+                          example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+                - type: object
+                  required:
+                    - error
+                    - message
+                  properties:
+                    error:
+                      type: object
+                      nullable: false
+                      required:
+                        - code
+                        - message
+                      properties:
+                        code:
+                          type: string
+                          nullable: false
+                          example: ABDM-1027
+                        message:
+                          type: string
+                          nullable: false
+                          example: You are blocked. Please try again after 24 hours.
+                    response:
+                      type: object
+                      nullable: false
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                          format: uuid
+                          nullable: false
+                          example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+                - type: object
+                  required:
+                    - error
+                    - message
+                  properties:
+                    error:
+                      type: object
+                      nullable: false
+                      required:
+                        - code
+                        - message
+                      properties:
+                        code:
+                          type: string
+                          nullable: false
+                          example: ABDM-1051
+                        message:
+                          type: string
+                          nullable: false
+                          example: Invalid ABHA Number or ABHA Address
+                    response:
+                      type: object
+                      nullable: false
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                          format: uuid
+                          nullable: false
+                          example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+                - type: object
+                  required:
+                    - error
+                    - message
+                  properties:
+                    error:
+                      type: object
+                      nullable: false
+                      required:
+                        - code
+                        - message
+                      properties:
+                        code:
+                          type: string
+                          nullable: false
+                          example: ABDM-1024
+                        message:
+                          type: string
+                          nullable: false
+                          example: Dependent service unavailable
+                    response:
+                      type: object
+                      nullable: false
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                          format: uuid
+                          nullable: false
+                          example: 6f0b4665-a915-4c92-aa36-65afb4a2cd71
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: server cannot find the requested resource
+        '500':
+          description: Internal Server Error
+
 
 
 components:
