@@ -16,11 +16,18 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from pydantic import Field, StrictBytes, StrictStr
+from typing import Union
+from typing_extensions import Annotated
+from abha.models.auth_aadhar_init_request import AuthAadharInitRequest
 from abha.models.create_health_id_with_pre_verified200_response import CreateHealthIdWithPreVerified200Response
 from abha.models.create_health_id_with_pre_verified_request import CreateHealthIdWithPreVerifiedRequest
 from abha.models.generate_mobile_otp_request import GenerateMobileOtpRequest
 from abha.models.generate_otp200_response import GenerateOtp200Response
 from abha.models.generate_otp_request import GenerateOtpRequest
+from abha.models.generate_png_card_using_get200_response import GeneratePngCardUsingGET200Response
+from abha.models.get_account_information_using_get200_response import GetAccountInformationUsingGET200Response
+from abha.models.resend_auth_otp_request import ResendAuthOTPRequest
 from abha.models.verify_otp_request import VerifyOtpRequest
 
 from abha.api_client import ApiClient, RequestSerialized
@@ -39,6 +46,566 @@ class DefaultApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def auth_aadhar_init(
+        self,
+        auth_aadhar_init_request: AuthAadharInitRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GenerateOtp200Response:
+        """auth-aadhar-init
+
+        This endpoint Initiates Aadhar Authentication
+
+        :param auth_aadhar_init_request: (required)
+        :type auth_aadhar_init_request: AuthAadharInitRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._auth_aadhar_init_serialize(
+            auth_aadhar_init_request=auth_aadhar_init_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def auth_aadhar_init_with_http_info(
+        self,
+        auth_aadhar_init_request: AuthAadharInitRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GenerateOtp200Response]:
+        """auth-aadhar-init
+
+        This endpoint Initiates Aadhar Authentication
+
+        :param auth_aadhar_init_request: (required)
+        :type auth_aadhar_init_request: AuthAadharInitRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._auth_aadhar_init_serialize(
+            auth_aadhar_init_request=auth_aadhar_init_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def auth_aadhar_init_without_preload_content(
+        self,
+        auth_aadhar_init_request: AuthAadharInitRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """auth-aadhar-init
+
+        This endpoint Initiates Aadhar Authentication
+
+        :param auth_aadhar_init_request: (required)
+        :type auth_aadhar_init_request: AuthAadharInitRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._auth_aadhar_init_serialize(
+            auth_aadhar_init_request=auth_aadhar_init_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _auth_aadhar_init_serialize(
+        self,
+        auth_aadhar_init_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if auth_aadhar_init_request is not None:
+            _body_params = auth_aadhar_init_request
+
+
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/auth/init',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def confirm_with_aadhaar_otp(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GenerateOtp200Response:
+        """aadhar-otp-confirm
+
+        This endpoint Confirms Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_with_aadhaar_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def confirm_with_aadhaar_otp_with_http_info(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GenerateOtp200Response]:
+        """aadhar-otp-confirm
+
+        This endpoint Confirms Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_with_aadhaar_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def confirm_with_aadhaar_otp_without_preload_content(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """aadhar-otp-confirm
+
+        This endpoint Confirms Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_with_aadhaar_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _confirm_with_aadhaar_otp_serialize(
+        self,
+        resend_auth_otp_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if resend_auth_otp_request is not None:
+            _body_params = resend_auth_otp_request
+
+
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/auth/confirmWithAadhaarOtp',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -324,6 +891,8 @@ class DefaultApi:
     @validate_call
     def generate_card_using_get(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -341,6 +910,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -364,6 +937,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -393,6 +968,8 @@ class DefaultApi:
     @validate_call
     def generate_card_using_get_with_http_info(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -410,6 +987,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -433,6 +1014,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -462,6 +1045,8 @@ class DefaultApi:
     @validate_call
     def generate_card_using_get_without_preload_content(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -479,6 +1064,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -502,6 +1091,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -526,6 +1117,8 @@ class DefaultApi:
 
     def _generate_card_using_get_serialize(
         self,
+        accept_language,
+        x_token,
         _request_auth,
         _content_type,
         _headers,
@@ -547,6 +1140,10 @@ class DefaultApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        if accept_language is not None:
+            _header_params['Accept-Language'] = accept_language
+        if x_token is not None:
+            _header_params['X-Token'] = x_token
         # process the form parameters
         # process the body parameter
 
@@ -555,6 +1152,7 @@ class DefaultApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1138,6 +1736,8 @@ class DefaultApi:
     @validate_call
     def generate_png_card_using_get(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1150,11 +1750,15 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> GeneratePngCardUsingGET200Response:
         """Generate ABHA card PNG
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1178,6 +1782,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_png_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1185,7 +1791,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GeneratePngCardUsingGET200Response",
             '400': None,
             '401': None,
             '403': None,
@@ -1207,6 +1813,8 @@ class DefaultApi:
     @validate_call
     def generate_png_card_using_get_with_http_info(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1219,11 +1827,15 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[GeneratePngCardUsingGET200Response]:
         """Generate ABHA card PNG
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1247,6 +1859,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_png_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1254,7 +1868,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GeneratePngCardUsingGET200Response",
             '400': None,
             '401': None,
             '403': None,
@@ -1276,6 +1890,8 @@ class DefaultApi:
     @validate_call
     def generate_png_card_using_get_without_preload_content(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1293,6 +1909,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1316,6 +1936,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_png_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1323,7 +1945,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GeneratePngCardUsingGET200Response",
             '400': None,
             '401': None,
             '403': None,
@@ -1340,6 +1962,8 @@ class DefaultApi:
 
     def _generate_png_card_using_get_serialize(
         self,
+        accept_language,
+        x_token,
         _request_auth,
         _content_type,
         _headers,
@@ -1361,14 +1985,25 @@ class DefaultApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        if accept_language is not None:
+            _header_params['Accept-Language'] = accept_language
+        if x_token is not None:
+            _header_params['X-Token'] = x_token
         # process the form parameters
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1392,6 +2027,8 @@ class DefaultApi:
     @validate_call
     def generate_svg_card_using_get(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1404,11 +2041,15 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> bytearray:
         """Generate ABHA card SVG
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1432,6 +2073,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_svg_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1439,7 +2082,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
@@ -1461,6 +2104,8 @@ class DefaultApi:
     @validate_call
     def generate_svg_card_using_get_with_http_info(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1473,11 +2118,15 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[bytearray]:
         """Generate ABHA card SVG
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1501,6 +2150,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_svg_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1508,7 +2159,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
@@ -1530,6 +2181,8 @@ class DefaultApi:
     @validate_call
     def generate_svg_card_using_get_without_preload_content(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1547,6 +2200,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format. Returns Error for <b>Unauthorized Auth Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1570,6 +2227,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._generate_svg_card_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1577,7 +2236,7 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
@@ -1594,6 +2253,8 @@ class DefaultApi:
 
     def _generate_svg_card_using_get_serialize(
         self,
+        accept_language,
+        x_token,
         _request_auth,
         _content_type,
         _headers,
@@ -1615,14 +2276,25 @@ class DefaultApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        if accept_language is not None:
+            _header_params['Accept-Language'] = accept_language
+        if x_token is not None:
+            _header_params['X-Token'] = x_token
         # process the form parameters
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1644,8 +2316,10 @@ class DefaultApi:
 
 
     @validate_call
-    def get_qr_code_using_get(
+    def get_account_information_using_get(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1658,11 +2332,306 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> GetAccountInformationUsingGET200Response:
+        """Get account information.
+
+        <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details. Returns Error for <b>Unauthorized Auth Token</b>.
+
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_account_information_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetAccountInformationUsingGET200Response",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_account_information_using_get_with_http_info(
+        self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetAccountInformationUsingGET200Response]:
+        """Get account information.
+
+        <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details. Returns Error for <b>Unauthorized Auth Token</b>.
+
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_account_information_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetAccountInformationUsingGET200Response",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_account_information_using_get_without_preload_content(
+        self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get account information.
+
+        <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then Returns Account Details. Returns Error for <b>Unauthorized Auth Token</b>.
+
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_account_information_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetAccountInformationUsingGET200Response",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_account_information_using_get_serialize(
+        self,
+        accept_language,
+        x_token,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if accept_language is not None:
+            _header_params['Accept-Language'] = accept_language
+        if x_token is not None:
+            _header_params['X-Token'] = x_token
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/account/profile',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_qr_code_using_get(
+        self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> bytearray:
         """Get Quick Response code in PNG format for this account.
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code. Returns Error for <b>Unauthorized Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1686,6 +2655,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._get_qr_code_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1693,11 +2664,13 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
+            '422': None,
+            '500': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1713,6 +2686,8 @@ class DefaultApi:
     @validate_call
     def get_qr_code_using_get_with_http_info(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1725,11 +2700,15 @@ class DefaultApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[bytearray]:
         """Get Quick Response code in PNG format for this account.
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code. Returns Error for <b>Unauthorized Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1753,6 +2732,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._get_qr_code_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1760,11 +2741,13 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
+            '422': None,
+            '500': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1780,6 +2763,8 @@ class DefaultApi:
     @validate_call
     def get_qr_code_using_get_without_preload_content(
         self,
+        accept_language: Annotated[StrictStr, Field(description="Access Token.")],
+        x_token: Annotated[StrictStr, Field(description="Access Token.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1797,6 +2782,10 @@ class DefaultApi:
 
         <b>Explanation</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code.    <b>Request Body</b> - Required    <b>Responce</b> - Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code. Returns Error for <b>Unauthorized Token</b>.
 
+        :param accept_language: Access Token. (required)
+        :type accept_language: str
+        :param x_token: Access Token. (required)
+        :type x_token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1820,6 +2809,8 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._get_qr_code_using_get_serialize(
+            accept_language=accept_language,
+            x_token=x_token,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1827,11 +2818,13 @@ class DefaultApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "bytearray",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
+            '422': None,
+            '500': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1842,6 +2835,277 @@ class DefaultApi:
 
     def _get_qr_code_using_get_serialize(
         self,
+        accept_language,
+        x_token,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if accept_language is not None:
+            _header_params['Accept-Language'] = accept_language
+        if x_token is not None:
+            _header_params['X-Token'] = x_token
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/account/qrCode',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def resend_auth_otp(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GenerateOtp200Response:
+        """resend-auth-aadhar-init
+
+        This endpoint Initiates Resends Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resend_auth_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def resend_auth_otp_with_http_info(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GenerateOtp200Response]:
+        """resend-auth-aadhar-init
+
+        This endpoint Initiates Resends Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resend_auth_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def resend_auth_otp_without_preload_content(
+        self,
+        resend_auth_otp_request: ResendAuthOTPRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """resend-auth-aadhar-init
+
+        This endpoint Initiates Resends Aadhar Authentication
+
+        :param resend_auth_otp_request: (required)
+        :type resend_auth_otp_request: ResendAuthOTPRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resend_auth_otp_serialize(
+            resend_auth_otp_request=resend_auth_otp_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GenerateOtp200Response",
+            '400': None,
+            '401': None,
+            '500': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _resend_auth_otp_serialize(
+        self,
+        resend_auth_otp_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1865,9 +3129,30 @@ class DefaultApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if resend_auth_otp_request is not None:
+            _body_params = resend_auth_otp_request
 
 
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1875,8 +3160,8 @@ class DefaultApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/account/qrCode',
+            method='POST',
+            resource_path='/auth/resendAuthOTP',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

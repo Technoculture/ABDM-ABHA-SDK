@@ -26,6 +26,20 @@ class TestDefaultApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_auth_aadhar_init(self) -> None:
+        """Test case for auth_aadhar_init
+
+        auth-aadhar-init
+        """
+        pass
+
+    def test_confirm_with_aadhaar_otp(self) -> None:
+        """Test case for confirm_with_aadhaar_otp
+
+        aadhar-otp-confirm
+        """
+        pass
+
     def test_create_health_id_with_pre_verified(self) -> None:
         """Test case for create_health_id_with_pre_verified
 
@@ -68,10 +82,24 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_get_account_information_using_get(self) -> None:
+        """Test case for get_account_information_using_get
+
+        Get account information.
+        """
+        pass
+
     def test_get_qr_code_using_get(self) -> None:
         """Test case for get_qr_code_using_get
 
         Get Quick Response code in PNG format for this account.
+        """
+        pass
+
+    def test_resend_auth_otp(self) -> None:
+        """Test case for resend_auth_otp
+
+        resend-auth-aadhar-init
         """
         pass
 
