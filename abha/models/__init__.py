@@ -23,4 +23,5 @@ from abha.models.generate_otp_request import GenerateOtpRequest
 from abha.models.generate_png_card_using_get200_response import GeneratePngCardUsingGET200Response
 from abha.models.get_account_information_using_get200_response import GetAccountInformationUsingGET200Response
 from abha.models.resend_auth_otp_request import ResendAuthOTPRequest
+from abha.models.v10_patients_profile_share_post_request import V10PatientsProfileSharePostRequest
 from abha.models.verify_otp_request import VerifyOtpRequest

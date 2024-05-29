@@ -103,6 +103,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_v10_patients_profile_on_share_post(self) -> None:
+        """Test case for v10_patients_profile_on_share_post
+
+        Response to patient's share profile request
+        """
+        pass
+
     def test_verify_mobile_otp(self) -> None:
         """Test case for verify_mobile_otp
 
