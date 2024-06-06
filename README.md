@@ -105,10 +105,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_account_information_using_get**](docs/DefaultApi.md#get_account_information_using_get) | **GET** /account/profile | Get account information.
 *DefaultApi* | [**get_qr_code_using_get**](docs/DefaultApi.md#get_qr_code_using_get) | **GET** /account/qrCode | Get Quick Response code in PNG format for this account.
 *DefaultApi* | [**resend_auth_otp**](docs/DefaultApi.md#resend_auth_otp) | **POST** /auth/resendAuthOTP | resend-auth-aadhar-init
-*DefaultApi* | [**v10_patients_profile_on_share_post**](docs/DefaultApi.md#v10_patients_profile_on_share_post) | **POST** /v1.0/patients/profile/on-share | Response to patient&#39;s share profile request
 *DefaultApi* | [**verify_mobile_otp**](docs/DefaultApi.md#verify_mobile_otp) | **POST** /registration/aadhaar/verifyMobileOTP | Verify Mobile OTP
 *DefaultApi* | [**verify_otp**](docs/DefaultApi.md#verify_otp) | **POST** /registration/aadhaar/verifyOTP | Verify OTP
-*ProfileApi* | [**v10_patients_profile_share_post**](docs/ProfileApi.md#v10_patients_profile_share_post) | **POST** /v1.0/patients/profile/share | Share patient profile details
 
 
 ## Documentation For Models
@@ -122,7 +120,6 @@ Class | Method | HTTP request | Description
  - [GeneratePngCardUsingGET200Response](docs/GeneratePngCardUsingGET200Response.md)
  - [GetAccountInformationUsingGET200Response](docs/GetAccountInformationUsingGET200Response.md)
  - [ResendAuthOTPRequest](docs/ResendAuthOTPRequest.md)
- - [V10PatientsProfileSharePostRequest](docs/V10PatientsProfileSharePostRequest.md)
  - [VerifyOtpRequest](docs/VerifyOtpRequest.md)
 
 

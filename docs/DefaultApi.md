@@ -15,7 +15,6 @@ Method | HTTP request | Description
 [**get_account_information_using_get**](DefaultApi.md#get_account_information_using_get) | **GET** /account/profile | Get account information.
 [**get_qr_code_using_get**](DefaultApi.md#get_qr_code_using_get) | **GET** /account/qrCode | Get Quick Response code in PNG format for this account.
 [**resend_auth_otp**](DefaultApi.md#resend_auth_otp) | **POST** /auth/resendAuthOTP | resend-auth-aadhar-init
-[**v10_patients_profile_on_share_post**](DefaultApi.md#v10_patients_profile_on_share_post) | **POST** /v1.0/patients/profile/on-share | Response to patient&#39;s share profile request
 [**verify_mobile_otp**](DefaultApi.md#verify_mobile_otp) | **POST** /registration/aadhaar/verifyMobileOTP | Verify Mobile OTP
 [**verify_otp**](DefaultApi.md#verify_otp) | **POST** /registration/aadhaar/verifyOTP | Verify OTP
 
@@ -934,75 +933,6 @@ Name | Type | Description  | Notes
 **400** | Bad request (e.g., missing or invalid Aadhaar number) |  -  |
 **401** | Unauthorized (invalid or missing bearer token) |  -  |
 **500** | Internal server error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v10_patients_profile_on_share_post**
-> v10_patients_profile_on_share_post(v10_patients_profile_share_post_request)
-
-Response to patient's share profile request
-
-Result of patient share profile request at HIP end. 
-
-### Example
-
-
-```python
-import abha
-from abha.models.v10_patients_profile_share_post_request import V10PatientsProfileSharePostRequest
-from abha.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://healthidsbx.abdm.gov.in/api/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = abha.Configuration(
-    host = "https://healthidsbx.abdm.gov.in/api/v1"
-)
-
-
-# Enter a context with an instance of the API client
-with abha.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = abha.DefaultApi(api_client)
-    v10_patients_profile_share_post_request = abha.V10PatientsProfileSharePostRequest() # V10PatientsProfileSharePostRequest | 
-
-    try:
-        # Response to patient's share profile request
-        api_instance.v10_patients_profile_on_share_post(v10_patients_profile_share_post_request)
-    except Exception as e:
-        print("Exception when calling DefaultApi->v10_patients_profile_on_share_post: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **v10_patients_profile_share_post_request** | [**V10PatientsProfileSharePostRequest**](V10PatientsProfileSharePostRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**202** | Request accepted |  -  |
-**400** | **Causes:**   * Format mismatch of any of attributes.  |  -  |
-**401** | **Causes:**   * Unauthorized request  |  -  |
-**500** | **Causes:**   * Downstream system(s) is down.   * Unhandled exceptions.  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
