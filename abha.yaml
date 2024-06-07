@@ -328,13 +328,13 @@ paths:
               type: object
               required:
                 - authMethod
-                - txnId
+                - healthid
               properties:
                 authMethod:
                   type: string
-                txnId:
+                healthid:
                   type: string
-                  format: uuid
+                  
       responses:
         '200':
           description: Transaction Id

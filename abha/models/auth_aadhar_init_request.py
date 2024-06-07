@@ -28,8 +28,8 @@ class AuthAadharInitRequest(BaseModel):
     """  # noqa: E501
 
     auth_method: StrictStr = Field(alias="authMethod")
-    txn_id: StrictStr = Field(alias="txnId")
-    __properties: ClassVar[List[str]] = ["authMethod", "txnId"]
+    healthid: StrictStr
+    __properties: ClassVar[List[str]] = ["authMethod", "healthid"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +80,6 @@ class AuthAadharInitRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate(
-            {"authMethod": obj.get("authMethod"), "txnId": obj.get("txnId")}
+            {"authMethod": obj.get("authMethod"), "healthid": obj.get("healthid")}
         )
         return _obj

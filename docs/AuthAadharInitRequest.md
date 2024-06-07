@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auth_method** | **str** |  | 
-**txn_id** | **str** |  | 
+**healthid** | **str** |  | 
 
 ## Example
 

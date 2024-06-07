@@ -36,12 +36,12 @@ class TestAuthAadharInitRequest(unittest.TestCase):
         if include_optional:
             return AuthAadharInitRequest(
                 auth_method = '',
-                txn_id = ''
+                healthid = ''
             )
         else:
             return AuthAadharInitRequest(
                 auth_method = '',
-                txn_id = '',
+                healthid = '',
         )
         """
 
