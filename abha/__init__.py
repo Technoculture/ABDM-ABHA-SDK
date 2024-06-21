@@ -30,6 +30,7 @@ from abha.exceptions import ApiAttributeError
 from abha.exceptions import ApiException
 
 # import models into sdk package
+from abha.models.auth_aadhar_init_request import AuthAadharInitRequest
 from abha.models.create_health_id_with_pre_verified200_response import (
     CreateHealthIdWithPreVerified200Response,
 )
@@ -39,4 +40,11 @@ from abha.models.create_health_id_with_pre_verified_request import (
 from abha.models.generate_mobile_otp_request import GenerateMobileOtpRequest
 from abha.models.generate_otp200_response import GenerateOtp200Response
 from abha.models.generate_otp_request import GenerateOtpRequest
+from abha.models.generate_png_card_using_get200_response import (
+    GeneratePngCardUsingGET200Response,
+)
+from abha.models.get_account_information_using_get200_response import (
+    GetAccountInformationUsingGET200Response,
+)
+from abha.models.resend_auth_otp_request import ResendAuthOTPRequest
 from abha.models.verify_otp_request import VerifyOtpRequest

@@ -314,11 +314,509 @@ paths:
           description: Internal server error
       security:
         - bearerAuth: []
+  /auth/init:
+    post:
+      summary: auth-aadhar-init
+      description: This endpoint Initiates Aadhar Authentication
+      operationId: authAadharInit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+
+              type: object
+              required:
+                - authMethod
+                - healthid
+              properties:
+                authMethod:
+                  type: string
+                healthid:
+                  type: string
+                  
+      responses:
+        '200':
+          description: Transaction Id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txnId:
+                    type: string
+                    format: uuid
+                    example: 'a825f76b-0696-40f3-864c-5a3a5b389a83'
+                    description: Based on UUID
+                  
+        '400':
+          description: Bad request (e.g., missing or invalid Aadhaar number)
+        '401':
+          description: Unauthorized (invalid or missing bearer token)
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+  /auth/resendAuthOTP:
+    post:
+      summary: resend-auth-aadhar-init
+      description: This endpoint Initiates Resends Aadhar Authentication
+      operationId: resendAuthOTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+
+              type: object
+              required:
+                - authMethod
+                - txnId
+              properties:
+                authMethod:
+                  type: string
+                txnId:
+                  type: string
+                  format: uuid
+                  example: 'a825f76b-0696-40f3-864c-5a3a5b389a83'
+                  description: Based on UUID
+      responses:
+        '200':
+          description: Transaction Id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txnId:
+                    type: string
+                    format: uuid
+                    example: 'a825f76b-0696-40f3-864c-5a3a5b389a83'
+                    description: Based on UUID
+                  
+        '400':
+          description: Bad request (e.g., missing or invalid Aadhaar number)
+        '401':
+          description: Unauthorized (invalid or missing bearer token)
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+  /auth/confirmWithAadhaarOtp:
+    post:
+      summary: aadhar-otp-confirm
+      description: This endpoint Confirms Aadhar Authentication
+      operationId: confirmWithAadhaarOtp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+
+              type: object
+              required:
+                - authMethod
+                - txnId
+              properties:
+                authMethod:
+                  type: string
+                txnId:
+                  type: string
+                  format: uuid
+                  example: 'a825f76b-0696-40f3-864c-5a3a5b389a83'
+                  description: Based on UUID
+      responses:
+        '200':
+          description: Transaction Id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txnId:
+                    type: string
+                    format: uuid
+                    example: 'a825f76b-0696-40f3-864c-5a3a5b389a83'
+                    description: Based on UUID
+                  
+        '400':
+          description: Bad request (e.g., missing or invalid Aadhaar number)
+        '401':
+          description: Unauthorized (invalid or missing bearer token)
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+  /account/profile:
+    get:
+      summary: Get account information.
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: getAccountInformationUsingGET
+      
+      parameters:
+        - name: Accept-Language
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        - name: X-Token
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Return Account details in case of success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    example: b-14 someshwar nagar
+                  authMethods:
+                    type: array
+                    example: AADHAAR_OTP
+                    description: Based on authMethods
+                    items:
+                      type: string
+                      enum:
+                        - AADHAAR_OTP
+                        - MOBILE_OTP
+                        - PASSWORD
+                        - DEMOGRAPHICS
+                        - AADHAAR_BIO
+                  dayOfBirth:
+                    type: string
+                    example: 31
+                  districtCode:
+                    type: string
+                    example: 401
+                  districtName:
+                    type: string
+                    example: Pune
+                  email:
+                    type: string
+                    example: example@demo.com
+                  emailVerified:
+                    type: boolean
+                  firstName:
+                    type: string
+                    example: kishan
+                  gender:
+                    type: string
+                    example: Male
+                  healthId:
+                    type: string
+                    example: deepakndhm
+                  healthIdNumber:
+                    type: string
+                    example: 43-4221-5105-6749
+                  kycPhoto:
+                    type: string
+                    example: sw1uD+gpv3fj6NHBNhtcII3GksVtkLT9bvcz0svYDyUt/x3jTtedXSYgw4b90GTwfLfs1eow056VsOw9HFS/wB8uH5Ysx+QzpL7PxmAY1WOHwOj04sPKN6Dw8XY8vcXovtvZc1dUB+TPAlGGPNu8iqMVPetukysjRxgbNdLLKMxn46rIRb8NieeyuDx1EHa90jJP9KwKGZdsLr08BysrmMJExzTO9FT93CzoNg50/nxzaQgmkBSbu9D8DxJm7XrLzWSUB05YCknHbokm4iXwyYBsrmfFDE/xCDfzYPhYyhtEmOi4J/GMp+lO+gAHQFQtxkIADhoSR8WXGcAbCUj7uTjFsBU/tc+RtvSotso4FXy8v+Ylzj28jbFTmmOWyAwYi9pThQjXnmRnq43dVdd5OXmxIII6SXs0JzoFvKwSk7VxhuLIRYzKqrkfcnWMrrmRgE8xZ6ZLft6O3IeiHb9WA8b/6/qO8Hdd17FKsSF6te59gSpoajS0FtQIgFn/c+NHzQYo5ZdsuRGM9v+bhHTInI=
+                    description: Encoded with Base 64
+                  kycVerified:
+                    type: boolean
+                    example: true
+                  lastName:
+                    type: string
+                    example: singh
+                  middleName:
+                    type: string
+                    example: kumar
+                  mobile:
+                    type: string
+                    example: 9545812125
+                  monthOfBirth:
+                    type: string
+                    example: '05'
+                  name:
+                    type: string
+                    example: kishan kumar singh
+                  new:
+                    type: boolean
+                  phrAddress:
+                    type: array
+                    items:
+                      type: string
+                  pincode:
+                    type: string
+                    example: 412306
+                  profilePhoto:
+                    type: string
+                    example: /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkJCQkJCQoLCwoODw0PDhQSERESFB4WFxYXFh4uHSEdHSEdLikxKCUoMSlJOTMzOUlUR0NHVGZbW2aBeoGoqOIBCQkJCQkJCgsLCg4PDQ8OFBIRERIUHhYXFhcWHi4dIR0dIR0uKTEoJSgxKUk5MzM5SVRHQ0dUZltbZoF6gaio4v/CABEIBLAHgAMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAACAwABBAUGB//aAAgBAQAAAADwawLpMspcK7qrlE5F0Vtul2bVywMUNeBHUkW/bmxvYELGuNjh2VDvixxo5ViljKjDRMoahCULjs2JCShjhjh2OGxo0Y2MoXHOLszsKLhw7tD99mpZQxj8xceofmLEKFwXLTIyHwY1Ls+iEotjHY0M0pjRYxtGj4VFKLPohQlFQyy4Qipc0XG9pS+CP/2Q==
+                    description: Encoded with Base 64
+                  stateCode:
+                    type: string
+                    example: 27
+                  stateName:
+                    type: string
+                    example: MAHARASHTRA
+                  subDistrictCode:
+                    type: string
+                    example: 213
+                  subdistrictName:
+                    type: string
+                    example: Baramati
+                  tags:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  townCode:
+                    type: string
+                    example: 27
+                  townName:
+                    type: string
+                    example: Baramati
+                  verificationStatus:
+                    type: string
+                    example: verified
+                  verificationType:
+                    type: string
+                    example: testing
+                  villageCode:
+                    type: string
+                    example: 412
+                  villageName:
+                    type: string
+                    example: Someshwar Nagar
+                  wardCode:
+                    type: string
+                    example: '08'
+                  wardName:
+                    type: string
+                    example: Sinhgad fort ward
+                  yearOfBirth:
+                    type: string
+                    example: 1994
+          
+        '400':
+          description: Bad request, check request before retrying
+          
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Could not Get account information or Invalid Token
+          
+        '500':
+          description: |-
+            Downstream system(s) is down.
+            Unhandled exceptions.
+          
+      security:
+        - bearerAuth: []
+        
+  /account/qrCode:
+    get:
+      summary: Get Quick Response code in PNG format for this account.
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then returns Account Info for QR Code. Returns Error for <b>Unauthorized Token</b>."
+      operationId: getQrCodeUsingGET
+      parameters:
+        - name: Accept-Language
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        - name: X-Token
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return QR Code in Byte Array Form in case of success
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+        '400':
+          description: Bad request, check request before retrying
+          
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Expired or Invalid Token
+          
+        '500':
+          description: |-
+            Downstream system(s) is down.
+            Unhandled exceptions.
+          
+      security:
+        - bearerAuth: []
+  /account/getSvgCard:
+    get:
+      summary: Generate ABHA card SVG
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for SVG format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generateSvgCardUsingGET
+      parameters:
+        - name: Accept-Language
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        - name: X-Token
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Return details in case of success
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+        '400':
+          description: Bad request, check request before retrying
+          
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Could not generate Card or Invalid Token
+          
+        '500':
+          description: |-
+            Downstream system(s) is down.
+            Unhandled exceptions.
+      security:
+
+        - bearerAuth: []
+  /account/getPngCard:
+    get:
+      summary: Generate ABHA card PNG
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PNG format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generatePngCardUsingGET
+      
+      parameters:
+        - name: Accept-Language
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        - name: X-Token
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Return details in case of success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  byteArray:
+                    type: string
+                    format: byte
+                  description:
+                    type: string
+                  filename:
+                    type: string
+                  open:
+                    type: boolean
+                  readable:
+                    type: boolean
+            
+        '400':
+          description: Bad request, check request before retrying
+          
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Could not generate Card or Invalid Token
+          
+        '500':
+          description: |-
+            Downstream system(s) is down.
+            Unhandled exceptions.
+          
+      security:
+        - bearerAuth: []
+  /account/getCard:
+    get:
+      summary: Generate ABHA card in PDF format
+      description: "<b>Explanation</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format.\r\n\r\n<b>Request Body</b>\t- Required\r\n\r\n<b>Responce</b>\t- Api Accepts <b>Auth Token</b> and then Returns Account Details for PDF format. Returns Error for <b>Unauthorized Auth Token</b>."
+      operationId: generateCardUsingGET
+      
+      parameters:
+        - name: Accept-Language
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        - name: X-Token
+          in: header
+          description: Access Token.
+          required: true
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Return details in case of success
+          
+        '400':
+          description: Bad request, check request before retrying
+          
+        '401':
+          description: Unauthorized Access.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Could not generate Card or Invalid Token
+          
+        '500':
+          description: |-
+            Downstream system(s) is down.
+            Unhandled exceptions.
+          
+      security:
+        - bearerAuth: []
+  
+
 
 
 components:
+
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    
